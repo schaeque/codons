@@ -23,4 +23,4 @@ Arg <- c('CGT', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG')
 Gly <- c('GGT', 'GGC', 'GGA', 'GGG')
 
 aa.all <- c(Lys, Ala, Phe, Leu, Ile, Met, Val, Ser, Pro, Thr, Tyr, Stop, His, Gln, Asn, Asp, Glu, Cys, Trp, Arg, Gly)
-aa.names <- c('Lys', 'Ala', 'Phe', 'Leu', 'Ile', 'Met', 'Val', 'Ser', 'Pro', 'Thr', 'Tyr', 'Stop', 'His', 'Gln', 'Asn', 'Asp', 'Glu', 'Cys', 'Trp', 'Arg', 'Gly')
+aa.names <- c('Lys', 'Ala', 'Phe', 'Leu', 'Ile', 'Met', 'Val', 'Ser', 'Pro', 'Thr', 'Tyr', 'His', 'Gln', 'Asn', 'Asp', 'Glu', 'Cys', 'Trp', 'Arg', 'Gly')
