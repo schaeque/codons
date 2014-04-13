@@ -2,26 +2,34 @@
 
 cu <- read.csv("data/codon-usage.csv")
 
+# Define amino acids
+
+source("analysis/aminoacids.R")
+
 # number of codons
 
 cu$n <- rowSums(cu[,2:65])
-
-# Summarize splitbox codons
-
-cu$split.AAG.AAA <- cu$AAG + cu$AAA
-cu$split.CAA.CAG <- cu$CAA + cu$CAG
-cu$split.GAA.GAG <- cu$GAA + cu$GAG
-
-cu$percentage.AAA <- cu$AAA / cu$split.AAG.AAA * 100
-cu$percentage.CAA <- cu$CAA / cu$split.CAA.CAG * 100
-cu$percentage.GAA <- cu$GAA / cu$split.GAA.GAG * 100
 
 # Codon usage per 1000 for whole ORFome
 
 cu.orfome <- colSums(cu[,2:65]) / sum(cu$n) * 1000
 
-# Normalized splitbox usage
+normalizeCU <- function(aa) {
+  # Summarize split box codons
 
-cu$norm.AAA <- (1000 / cu$n) * cu$split.AAG.AAA * 100 / (cu.orfome['AAG'] + cu.orfome['AAA'])
-cu$norm.CAA <- (1000 / cu$n) * cu$split.CAA.CAG * 100 / (cu.orfome['CAA'] + cu.orfome['CAG'])
-cu$norm.GAA <- (1000 / cu$n) * cu$split.GAA.GAG * 100 / (cu.orfome['GAA'] + cu.orfome['GAG'])
+  split <- rowSums(cu[, aa])
+  
+  # Normalize split box codons
+
+  percentage <- data.frame(row.names = cu[, 'ORF']) # Initialize empty data frame with ORFs as row names
+  
+  for(codon in aa) {
+    percentage[, codon] <- cu[, codon] / split * 100
+  }
+
+  # Normalized splitbox usage per 1000 codons
+
+  norm <- (1000 / cu[, 'n']) * split * 100 / sum(cu.orfome[aa])
+
+  return(cbind(split, percentage, norm))
+}
